@@ -1,0 +1,35 @@
+{
+    "bugs": "https://github.com/hubofthings/node-red-contrib-librato/issues",
+    "contributors": [
+        {
+            "email": "geoffrey@geoffreyarnold.com",
+            "name": "Geoffrey Arnold",
+            "url": "https://github.com/garnold"
+        },
+        {
+            "name": "Paul Groudas",
+            "url": "https://github.com/pgroudas"
+        }
+    ],
+    "dependencies": {
+        "librato-node": "2.1.x"
+    },
+    "description": "A Node-RED node to send metrics to Librato.",
+    "keywords": [
+        "node-red",
+        "node-red-contrib",
+        "librato"
+    ],
+    "license": "MIT",
+    "name": "node-red-contrib-librato",
+    "node-red": {
+        "nodes": {
+            "librato": "librato.js"
+        }
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/hubofthings/node-red-contrib-librato.git"
+    },
+    "version": "0.0.1"
+}
