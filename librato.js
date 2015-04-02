@@ -31,12 +31,14 @@ module.exports = function(RED) {
         this.email = n.email;
         this.token = n.token;
         this.source = n.source || os.hostname();
+        this.period = n.period || 60;
 
         this.client = require('librato-node');
         this.client.configure({
             email: this.email,
             token: this.token,
-            source: this.source
+            source: this.source,
+            period: this.period * 1000
         });
 
         this.log('Starting Librato client [' + this.email + ']');
