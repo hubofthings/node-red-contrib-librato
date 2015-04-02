@@ -57,13 +57,19 @@ module.exports = function(RED) {
         var node = this;
 
         this.on('input', function(msg) {
-            var value = msg.payload;
+            var value = Number(msg.payload);
 
-            if (node.librato) {
+            if (isNaN(value)) {
+                node.warn('Payload is NaN [' + msg.payload + ']');
+            } else if (node.librato) {
                 if (node.metricType == 'gauge') {
                     node.librato.client.measure(node.metricName, value);
                 } else {
-                    node.librato.client.increment(node.metricName, value);
+                    if (value) {
+                        node.librato.client.increment(node.metricName, value);
+                    } else {
+                        node.librato.client.increment(node.metricName);
+                    }
                 }
             } else {
                 node.error('Librato client is not configured');
