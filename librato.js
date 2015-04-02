@@ -25,33 +25,49 @@ THE SOFTWARE.
 module.exports = function(RED) {
     'use strict';
 
+    function LibratoConfigNode(n) {
+        RED.nodes.createNode(this, n);
+        this.email = n.email;
+        this.token = n.token;
+
+        this.client = require('librato-node');
+        this.client.configure({
+            email: this.email,
+            token: this.token
+        });
+
+        this.log('Starting Librato client [' + this.email + ']');
+        this.client.start();
+
+        var node = this;
+
+        this.on('close', function() {
+            node.log('Stopping Librato client');
+            node.client.stop();
+        });
+    }
+    RED.nodes.registerType('librato-config', LibratoConfigNode);
+
     function LibratoNode(n) {
         RED.nodes.createNode(this, n);
-        this.libratoEmail = n.libratoEmail;
-        this.libratoToken = n.libratoToken;
+        this.librato = RED.nodes.getNode(n.librato);
         this.metricName = n.metricName;
         this.metricType = n.metricType || 'gauge';
 
         var node = this;
-        var librato = require('librato-node');
-        librato.configure({
-            email: this.libratoEmail,
-            token: this.libratoToken
-        });
-        librato.start();
 
         this.on('input', function(msg) {
             var value = msg.payload;
 
-            if (node.metricType == 'gauge') {
-                librato.measure(node.metricName, value);
+            if (node.librato) {
+                if (node.metricType == 'gauge') {
+                    node.librato.client.measure(node.metricName, value);
+                } else {
+                    node.librato.client.increment(node.metricName, value);
+                }
             } else {
-                librato.increment(node.metricName, value);
+                node.error('Librato client is not configured');
             }
-        });
-
-        this.on('close', function() {
-            librato.stop();
         });
     }
     RED.nodes.registerType('librato', LibratoNode);
