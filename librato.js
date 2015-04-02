@@ -57,7 +57,7 @@ module.exports = function(RED) {
         var node = this;
 
         this.on('input', function(msg) {
-            var value = Number(msg.payload);
+            var value = Number(msg.payload || 0);
 
             if (isNaN(value)) {
                 node.warn('Payload is NaN [' + msg.payload + ']');
