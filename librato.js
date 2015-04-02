@@ -24,16 +24,19 @@ THE SOFTWARE.
 
 module.exports = function(RED) {
     'use strict';
+    var os = require('os');
 
     function LibratoConfigNode(n) {
         RED.nodes.createNode(this, n);
         this.email = n.email;
         this.token = n.token;
+        this.source = n.source || os.hostname();
 
         this.client = require('librato-node');
         this.client.configure({
             email: this.email,
-            token: this.token
+            token: this.token,
+            source: this.source
         });
 
         this.log('Starting Librato client [' + this.email + ']');

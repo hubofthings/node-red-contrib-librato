@@ -18,6 +18,5 @@ This node can be connected to the output of any node, and will publish `msg.payl
 TODO
 ----
 
-  - Add support for [configuring the source](http://dev.librato.com/v1/post/metrics)
   - Add support for [configuring the period](https://github.com/goodeggs/librato-node#advanced)
   - Add support for [measuring durations](https://github.com/goodeggs/librato-node#timing)

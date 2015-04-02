@@ -24,12 +24,16 @@ THE SOFTWARE.
 
 <script type="text/x-red" data-template-name="librato-config">
     <div class="form-row">
-        <label for="node-input-email"><i class="fa fa-user"></i> Email</label>
+        <label for="node-config-input-email"><i class="fa fa-user"></i> Email</label>
         <input type="text" id="node-config-input-email" placeholder="you@yourdomain.com">
     </div>
     <div class="form-row">
-        <label for="node-input-token"><i class="fa fa-user-secret"></i> Token</label>
+        <label for="node-config-input-token"><i class="fa fa-user-secret"></i> Token</label>
         <input type="text" id="node-config-input-token" placeholder="token">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-source"><i class="fa fa-server"></i> Source</label>
+        <input type="text" id="node-config-input-source">
     </div>
 </script>
 
@@ -68,6 +72,9 @@ THE SOFTWARE.
             token: {
                 value: '',
                 required: true
+            },
+            source: {
+                value: ''
             }
         },
         label: function() {
