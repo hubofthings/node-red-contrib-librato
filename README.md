@@ -18,6 +18,5 @@ This node can be connected to the output of any node, and will publish `msg.payl
 TODO
 ----
 
-  - Use [configuration node](http://nodered.org/docs/creating-nodes/config-nodes.html) to store Librato credentials
   - Add support for [configuring the period](https://github.com/goodeggs/librato-node#advanced)
   - Add support for [measuring durations](https://github.com/goodeggs/librato-node#timing)
