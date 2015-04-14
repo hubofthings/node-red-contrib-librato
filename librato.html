@@ -35,10 +35,6 @@ THE SOFTWARE.
         <label for="node-config-input-source"><i class="fa fa-server"></i> Source</label>
         <input type="text" id="node-config-input-source" placeholder="(hostname)">
     </div>
-    <div class="form-row">
-        <label for="node-config-input-period"><i class="fa fa-refresh"></i> Period</label>
-        <input type="text" id="node-config-input-period" placeholder="(seconds)">
-    </div>
 </script>
 
 <script type="text/x-red" data-template-name="librato">
@@ -79,12 +75,6 @@ THE SOFTWARE.
             },
             source: {
                 value: ''
-            },
-            period: {
-                value: '',
-                validate: function(v) {
-                    return v == '' || !isNaN(v);
-                }
             }
         },
         label: function() {
