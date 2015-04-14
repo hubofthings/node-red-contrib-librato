@@ -18,4 +18,4 @@ This node can be connected to the output of any node, and will publish `msg.payl
 TODO
 ----
 
-  - Add support for [measuring durations](https://github.com/goodeggs/librato-node#timing)
+  - [Queue and periodically flush](http://dev.librato.com/v1/post/metrics) recorded metrics

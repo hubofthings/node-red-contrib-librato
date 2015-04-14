@@ -31,24 +31,10 @@ module.exports = function(RED) {
         this.email = n.email;
         this.token = n.token;
         this.source = n.source || os.hostname();
-        this.period = n.period || 60;
 
-        this.client = require('librato-node');
-        this.client.configure({
+        this.client = require('librato-metrics').createClient({
             email: this.email,
-            token: this.token,
-            source: this.source,
-            period: this.period * 1000
-        });
-
-        this.log('Starting Librato client [' + this.email + ']');
-        this.client.start();
-
-        var node = this;
-
-        this.on('close', function() {
-            node.log('Stopping Librato client');
-            node.client.stop();
+            token: this.token
         });
     }
     RED.nodes.registerType('librato-config', LibratoConfigNode);
@@ -67,15 +53,21 @@ module.exports = function(RED) {
             if (isNaN(value)) {
                 node.warn('Payload is NaN [' + msg.payload + ']');
             } else if (node.librato) {
-                if (node.metricType == 'gauge') {
-                    node.librato.client.measure(node.metricName, value);
-                } else {
-                    if (value) {
-                        node.librato.client.increment(node.metricName, value);
-                    } else {
-                        node.librato.client.increment(node.metricName);
+                var metrics = {
+                    source: node.librato.source
+                };
+                metrics[node.metricType + 's'] = [{
+                    name: node.metricName,
+                    value: value
+                }];
+
+                node.librato.client.post('/metrics', metrics, function(error, body) {
+                    if (error) {
+                        node.warn(error);
+                    } else if (body) {
+                        node.log(body);
                     }
-                }
+                });
             } else {
                 node.error('Librato client is not configured');
             }
