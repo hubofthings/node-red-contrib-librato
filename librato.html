@@ -29,7 +29,7 @@ THE SOFTWARE.
     </div>
     <div class="form-row">
         <label for="node-config-input-token"><i class="fa fa-user-secret"></i> Token</label>
-        <input type="text" id="node-config-input-token" placeholder="token">
+        <input type="password" id="node-config-input-token" placeholder="token">
     </div>
     <div class="form-row">
         <label for="node-config-input-source"><i class="fa fa-server"></i> Source</label>
@@ -64,20 +64,20 @@ THE SOFTWARE.
     RED.nodes.registerType('librato-config', {
         category: 'config',
         defaults: {
-            email: {
-                value: '',
-                required: true
-            },
-            token: {
-                value: '',
-                required: true
-            },
             source: {
                 value: ''
             }
         },
+        credentials: {
+            email: {
+                type: 'text'
+            },
+            token: {
+                type: 'password'
+            }
+        },
         label: function() {
-            return this.email;
+            return this.credentials ? this.credentials.email : '???';
         }
     });
 

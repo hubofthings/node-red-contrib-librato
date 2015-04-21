@@ -28,16 +28,23 @@ module.exports = function(RED) {
 
     function LibratoConfigNode(n) {
         RED.nodes.createNode(this, n);
-        this.email = n.email;
-        this.token = n.token;
         this.source = n.source || os.hostname();
 
         this.client = require('librato-metrics').createClient({
-            email: this.email,
-            token: this.token
+            email: this.credentials.email,
+            token: this.credentials.token
         });
     }
-    RED.nodes.registerType('librato-config', LibratoConfigNode);
+    RED.nodes.registerType('librato-config', LibratoConfigNode, {
+        credentials: {
+            email: {
+                type: 'text'
+            },
+            token: {
+                type: 'password'
+            }
+        }
+    });
 
     function LibratoNode(n) {
         RED.nodes.createNode(this, n);
