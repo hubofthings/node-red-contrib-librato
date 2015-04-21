@@ -26,9 +26,9 @@ module.exports = function(RED) {
     'use strict';
     var os = require('os');
 
-    function LibratoConfigNode(n) {
-        RED.nodes.createNode(this, n);
-        this.source = n.source || os.hostname();
+    function LibratoConfigNode(config) {
+        RED.nodes.createNode(this, config);
+        this.source = config.source || os.hostname();
 
         this.client = require('librato-metrics').createClient({
             email: this.credentials.email,
@@ -46,11 +46,11 @@ module.exports = function(RED) {
         }
     });
 
-    function LibratoNode(n) {
-        RED.nodes.createNode(this, n);
-        this.librato = RED.nodes.getNode(n.librato);
-        this.metricName = n.metricName;
-        this.metricType = n.metricType || 'gauge';
+    function LibratoNode(config) {
+        RED.nodes.createNode(this, config);
+        this.librato = RED.nodes.getNode(config.librato);
+        this.metricName = config.metricName;
+        this.metricType = config.metricType || 'gauge';
 
         var node = this;
 
