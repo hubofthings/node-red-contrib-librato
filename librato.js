@@ -26,24 +26,31 @@ module.exports = function(RED) {
     'use strict';
     var os = require('os');
 
-    function LibratoConfigNode(n) {
-        RED.nodes.createNode(this, n);
-        this.email = n.email;
-        this.token = n.token;
-        this.source = n.source || os.hostname();
+    function LibratoConfigNode(config) {
+        RED.nodes.createNode(this, config);
+        this.source = config.source || os.hostname();
 
         this.client = require('librato-metrics').createClient({
-            email: this.email,
-            token: this.token
+            email: this.credentials.email,
+            token: this.credentials.token
         });
     }
-    RED.nodes.registerType('librato-config', LibratoConfigNode);
+    RED.nodes.registerType('librato-config', LibratoConfigNode, {
+        credentials: {
+            email: {
+                type: 'text'
+            },
+            token: {
+                type: 'password'
+            }
+        }
+    });
 
-    function LibratoNode(n) {
-        RED.nodes.createNode(this, n);
-        this.librato = RED.nodes.getNode(n.librato);
-        this.metricName = n.metricName;
-        this.metricType = n.metricType || 'gauge';
+    function LibratoNode(config) {
+        RED.nodes.createNode(this, config);
+        this.librato = RED.nodes.getNode(config.librato);
+        this.metricName = config.metricName;
+        this.metricType = config.metricType || 'gauge';
 
         var node = this;
 
