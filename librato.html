@@ -23,13 +23,17 @@ THE SOFTWARE.
 -->
 
 <script type="text/x-red" data-template-name="librato-config">
+   <div class="form-row">
+       <label for="node-config-input-name"><i class="fa fa-tag"></i> Name</label>
+       <input type="text" id="node-config-input-name">
+   </div>
     <div class="form-row">
         <label for="node-config-input-email"><i class="fa fa-user"></i> Email</label>
         <input type="text" id="node-config-input-email" placeholder="you@yourdomain.com">
     </div>
     <div class="form-row">
         <label for="node-config-input-token"><i class="fa fa-user-secret"></i> Token</label>
-        <input type="text" id="node-config-input-token" placeholder="token">
+        <input type="password" id="node-config-input-token" placeholder="token">
     </div>
     <div class="form-row">
         <label for="node-config-input-source"><i class="fa fa-server"></i> Source</label>
@@ -64,11 +68,10 @@ THE SOFTWARE.
     RED.nodes.registerType('librato-config', {
         category: 'config',
         defaults: {
-            email: {
-                value: '',
-                required: true
+            name: {
+                value: ''
             },
-            token: {
+            email: {
                 value: '',
                 required: true
             },
@@ -76,8 +79,13 @@ THE SOFTWARE.
                 value: ''
             }
         },
+        credentials: {
+            token: {
+                type: 'password'
+            }
+        },
         label: function() {
-            return this.email;
+            return this.name || this.email;
         }
     });
 
@@ -95,7 +103,7 @@ THE SOFTWARE.
                 required: true
             },
             metricType: {
-                value: ''
+                value: 'gauge'
             }
         },
         inputs: 1,
