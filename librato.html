@@ -23,6 +23,10 @@ THE SOFTWARE.
 -->
 
 <script type="text/x-red" data-template-name="librato-config">
+   <div class="form-row">
+       <label for="node-config-input-name"><i class="fa fa-tag"></i> Name</label>
+       <input type="text" id="node-config-input-name">
+   </div>
     <div class="form-row">
         <label for="node-config-input-email"><i class="fa fa-user"></i> Email</label>
         <input type="text" id="node-config-input-email" placeholder="you@yourdomain.com">
@@ -64,20 +68,24 @@ THE SOFTWARE.
     RED.nodes.registerType('librato-config', {
         category: 'config',
         defaults: {
+            name: {
+                value: ''
+            },
+            email: {
+                value: '',
+                required: true
+            },
             source: {
                 value: ''
             }
         },
         credentials: {
-            email: {
-                type: 'text'
-            },
             token: {
                 type: 'password'
             }
         },
         label: function() {
-            return this.credentials ? this.credentials.email : '???';
+            return this.name || this.email;
         }
     });
 

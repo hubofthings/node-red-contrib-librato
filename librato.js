@@ -31,15 +31,12 @@ module.exports = function(RED) {
         this.source = config.source || os.hostname();
 
         this.client = require('librato-metrics').createClient({
-            email: this.credentials.email,
+            email: config.email,
             token: this.credentials.token
         });
     }
     RED.nodes.registerType('librato-config', LibratoConfigNode, {
         credentials: {
-            email: {
-                type: 'text'
-            },
             token: {
                 type: 'password'
             }
