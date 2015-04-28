@@ -1,4 +1,5 @@
 # Change Log
+
 All notable changes to this project will be documented in this file.  This project adheres to [Semantic Versioning](http://semver.org/).
 
 <!-- ## Unreleased -->
@@ -12,6 +13,8 @@ All notable changes to this project will be documented in this file.  This proje
   - FIXED: [Fixed issue where counters were being recorded as gauges](https://github.com/goodeggs/librato-node/issues/36).  From the [Librato documentation](http://support.metrics.librato.com/knowledgebase/articles/18439-what-are-counters):
   
   > A Librato counter is unbounded (up to 64 bits) and always monotonically increasing in any given run. A new run can be started by restarting the counter's value at zero.
+
+  - FIXED: Removed empty option from metric type selector.
 
 ## 1.2.0
 
