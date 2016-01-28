@@ -18,7 +18,8 @@
   "keywords": [
     "node-red",
     "node-red-contrib",
-    "librato"
+    "librato",
+    "metrics"
   ],
   "license": "MIT",
   "name": "node-red-contrib-librato",
